@@ -48,7 +48,7 @@ game_over = False
 weight_on_glass = 0
 
 # Time challenge variables
-time_limit = 30  # Time limit in seconds for each time challenge
+time_limit = 10  # Time limit in seconds for each time challenge
 challenge_active = False
 challenge_start_time = 0
 challenge_score = 0
@@ -123,6 +123,7 @@ def check_collision():
     global game_over, weight_on_glass, score
 
     weight_on_glass = 0
+    current_score = 0
 
     for animal in animals:
         animal_x, animal_y = animal[1], animal[2]
@@ -135,10 +136,13 @@ def check_collision():
             )
         ):
             weight_on_glass += animal[3]
-            score += animal[3]
+            current_score += 1
+
 
     if weight_on_glass > weight_limit:
         game_over = True
+    else:
+        score = current_score
 
 def display_time_left(time_left):
     time_text = font.render("Time Left: " + str(time_left), True, WHITE)
@@ -178,13 +182,18 @@ def game_loop():
             if time_left <= 0:
                 end_time_challenge()
                 continue
+            else:
+                if pygame.time.get_ticks() - last_spawn_time > animal_spawn_delay:
+                    spawn_animal()
+                    last_spawn_time = pygame.time.get_ticks()
             display_time_left(time_left)
         else:
+            start_time_challenge()
             if pygame.time.get_ticks() - last_spawn_time > animal_spawn_delay:
                 spawn_animal()
                 last_spawn_time = pygame.time.get_ticks()
-                if len(animals) >= challenge_target:
-                    start_time_challenge()
+                # if len(animals) >= challenge_target:
+                #     start_time_challenge()
 
         check_collision()
         update_animals()

@@ -121,7 +121,8 @@ def check_collision():
     global game_over, weight_on_glass, score
 
     weight_on_glass = 0  # Reset the weight on glass for each iteration
-
+    current_score = 0  # Reset the current score for each iteration
+    
     for animal in animals:
         animal_x, animal_y = animal[1], animal[2]
         if (
@@ -133,10 +134,12 @@ def check_collision():
             )
         ):
             weight_on_glass += animal[3]
-            score += 1
+            current_score += 1
 
     if weight_on_glass > weight_limit:
         game_over = True
+    else:
+        score = current_score
 
 def display_time():
     elapsed_time = (pygame.time.get_ticks() - start_time) // 1000  # Calculate elapsed time in seconds
