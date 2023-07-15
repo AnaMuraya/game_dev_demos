@@ -220,3 +220,12 @@ def game_loop():
     pygame.quit()
 
 game_loop()
+
+
+# ! Marking points:
+# * Display a time countdown
+# * Add a background image to the display
+# * Add sound to the game when at a time of your choosing (could be when the glass breaks)
+# * Makesure that when an animal lands on the glass the a score is added (so your score should be equal to the number of animals on the glass)
+# * Add a gameover screen to the game that displays a GAMEOVER text and the score when the game is over (i.e, when the glass breaks)
+# * Make sure that when an animal lands on the glass, then they can't fall off when we move the glass
